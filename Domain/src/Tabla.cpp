@@ -1,4 +1,10 @@
 #include "../../Domain/include/Tabla.h"
+#include <iostream>
+
+using namespace std;
+
+template class Tabla<string, int>;
+
 
 template <typename C, typename V>
 Tabla<C, V>::Tabla(unsigned int cap) : capacidad(cap) {

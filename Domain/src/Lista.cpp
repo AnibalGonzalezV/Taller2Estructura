@@ -1,6 +1,8 @@
-
 #include "../../Domain/include/Lista.h"
+#include <iostream>
 
+
+template class Lista<std::string, int>;
 
 template<typename C, typename V>
 Lista<C, V>::Lista() : head(nullptr){}
