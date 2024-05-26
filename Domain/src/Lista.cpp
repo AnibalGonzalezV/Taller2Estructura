@@ -1,4 +1,5 @@
-#include "/Domain/include/Lista.h"
+
+#include "../../Domain/include/Lista.h"
 
 
 template<typename C, typename V>
@@ -43,7 +44,7 @@ bool Lista<C, V>::actualizar(const C& clave, const V& valor){
             actual->valor = valor;
             return true;
         }
-        actual = actual->siguiente
+        actual = actual->siguiente;
     }
     return false;
 }

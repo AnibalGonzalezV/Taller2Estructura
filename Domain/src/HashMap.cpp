@@ -1,7 +1,7 @@
-#include "Domain/include/HashMap.h"
+#include "../../Domain/include/HashMap.h"
 
 template <typename C, typename V>
-HashMap<C, V>::HashMap(unsigned int capacidad) : tabla(capacidad), tamanio(0) {}
+HashMap<C, V>::HashMap(int capacidad) : tabla(capacidad), tamanio(0) {}
 
 template <typename C, typename V>
 void HashMap<C, V>::insertar(const C& clave, const V& valor) {
@@ -15,6 +15,6 @@ bool HashMap<C, V>::obtener(const C& clave, V& valor) const {
 }
 
 template <typename C, typename V>
-unsigned int HashMap<C, V>::obtenerTamanio() const {
+int HashMap<C, V>::obtenerTamanio() const {
     return tamanio;
 }

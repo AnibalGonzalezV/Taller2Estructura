@@ -1,4 +1,5 @@
 #pragma once
+// #include "Lista.h"
 #include "Lista.h"
 
 
@@ -17,4 +18,3 @@ public:
     void insertar(const C& clave, const V& valor);
     bool obtener(const C& clave, V& valor) const;
 };
-#include "/Domain/src/Tabla.cpp"
