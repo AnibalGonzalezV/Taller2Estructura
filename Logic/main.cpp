@@ -1,34 +1,32 @@
-#include "Domain/include/Tabla.h"
+#include "/Domain/include/HashMap.h"
+#include <iostream>
+#include <string>
 
-template <typename C, typename V>
-Tabla<C, V>::Tabla(unsigned int cap) : capacidad(cap) {
-    tabla = new Lista<C, V>[capacidad];
-}
+using namespace std;
 
-template <typename C, typename V>
-Tabla<C, V>::~Tabla() {
-    delete[] tabla;
-}
+int main(){
+    HashMap<string, int> mapa;
 
-template <typename C, typename V>
-unsigned int Tabla<C, V>::calcularHash(const C& clave) const {
-    unsigned int hash = 0;
-    for (char c : clave) {
-        hash += c;
+    mapa.insertar("Juan", 30);
+    mapa.insertar("Pedro", 25);
+    mapa.insertar("Ana", 40);
+    mapa.insertar("Pepe", 14);   
+
+    string nombre = "Pedro";
+    int edad;
+    if(mapa.obtener(nombre, edad)){
+        cout << "La edad de " << nombre << " es " << edad << " años." << endl;
+    } else {
+        cout << "No se encontró informacion para " << nombre << "." << endl;
     }
-    return hash % capacidad;
-}
 
-template <typename C, typename V>
-void Tabla<C, V>::insertar(const C& clave, const V& valor) {
-    unsigned int indice = calcularHash(clave);
-    if (!tabla[indice].actualizar(clave, valor)) {
-        tabla[indice].insertar(clave, valor);
+    string nombre = "Anibal";
+    int edad;
+    if(mapa.obtener(nombre, edad)){
+        cout << "La edad de " << nombre << " es " << edad << " años." << endl;
+    } else {
+        cout << "No se encontró informacion para " << nombre << "." << endl;
     }
-}
 
-template <typename C, typename V>
-bool Tabla<C, V>::obtener(const C& clave, V& valor) const {
-    unsigned int indice = calcularHash(clave);
-    return tabla[indice].obtener(clave, valor);
+
 }

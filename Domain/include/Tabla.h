@@ -17,4 +17,4 @@ public:
     void insertar(const C& clave, const V& valor);
     bool obtener(const C& clave, V& valor) const;
 };
-#include "Domain/src/Tabla.cpp"
+#include "/Domain/src/Tabla.cpp"

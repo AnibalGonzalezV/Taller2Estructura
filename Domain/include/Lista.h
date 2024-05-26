@@ -1,6 +1,6 @@
 #pragma once
 #include "Nodo.h"
-#include "Domain/src/Lista.cpp"
+#include "/Domain/src/Lista.cpp"
 
 template <typename C, typename V>
 class Lista {

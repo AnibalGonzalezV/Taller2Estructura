@@ -1,4 +1,4 @@
-#include "Domain/include/Tabla.h"
+#include "/Domain/include/Tabla.h"
 
 template <typename C, typename V>
 Tabla<C, V>::Tabla(unsigned int cap) : capacidad(cap) {
