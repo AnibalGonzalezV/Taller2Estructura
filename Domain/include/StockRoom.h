@@ -7,14 +7,14 @@ using namespace std;
 
 class StockRoom{
 private:
-    HashMap<string, Producto*> productos; //<nombre_producto(key), puntero_producto(value)>
+    HashMap<string, Product*> productos; //<nombre_producto(key), puntero_producto(value)>
 public:
-    Bodega();
+    StockRoom();
     //Agregar productos al MAP
-    void agregarProductos(string nombreProducto, Product* producto);
+    void agregarProducto(string nombreProducto, Product* producto);
     //Obtener un producto en especifico por su codigo
     Product* getProductByID(string codigoProducto);
     //metodo obtener todos los productos en un string
     string getProductos();
-    ~Bodega();
+    ~StockRoom();
 };

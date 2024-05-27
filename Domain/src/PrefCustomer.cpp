@@ -1,12 +1,10 @@
 #include "../include/PrefCustomer.h"
 using namespace std;
 
-PrefCustomer::PrefCustomer(){};
-
-PrefCustomer::PrefCustomer(string nombre, int edad, string preferencia) : Customer(nombre, edad) { this ->preferencia = preferencia; }
+PrefCustomer::PrefCustomer(string nombre, string rut, int edad, string tipo) : Customer(nombre, rut, edad) { this ->tipo = tipo; }
 
 PrefCustomer::~PrefCustomer(){ cout<<"Preferencial Customer object ("<< nombre << ") is being removed..." << endl; }
 
-string PrefCustomer::getPreferencia() { return this -> preferencia; }
+string PrefCustomer::getTipo() { return this -> tipo; }
 
-void PrefCustomer::setPreferencia(string preferencia) { this -> preferencia = preferencia; }
+void PrefCustomer::setTipo(string tipo) { this -> tipo = tipo; }

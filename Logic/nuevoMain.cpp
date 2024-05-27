@@ -5,10 +5,10 @@
 #include <fstream>
 #include <sstream>
 #include <limits>
-#include "../include/Customer.h"
-#include "../include/PrefCustomer.h"
-#include "../include/Product.h"
-#include "../include/StockRoom.h"
+#include "../Domain/include/Customer.h"
+#include "../Domain/include/PrefCustomer.h"
+#include "../Domain/include/Product.h"
+#include "../Domain/include/StockRoom.h"
 
 using namespace std;
 
@@ -63,7 +63,7 @@ bool guardarBoleta2(vector<string> &ventas, Customer* &customer){
         return true
     }
     for (const auto& venta : ventas){
-        file << venta << "$, Rut del Cliente: "<< ustomer->getRut() <<endl;
+        file << venta << "$, Rut del Cliente: "<< customer->getRut() <<endl;
     }
     file.close();
     return false;

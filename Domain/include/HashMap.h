@@ -77,7 +77,7 @@ V HashMap<K, V>::get(K key) {
             return current->value;
         current = current->next;
     }
-    cout << "[!] Clave no existe." << endl;
+     throw std::runtime_error("Clave no encontrada.");
 }
 
 template<typename K, typename V>

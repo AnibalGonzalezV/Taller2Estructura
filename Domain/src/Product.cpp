@@ -19,12 +19,12 @@ string Product::getCategoria(){
 string Product::getSubCategoria(){
     return subcategoria;
 }
-string Product::getNombreProduct(){
-    return nombre_Product;
+string Product::getNombreProducto(){
+    return nombreProducto;
 }
 int Product::getPrecio(){
     return precio;
 }
 string Product::getCodigo(){
-    return codigo;
+    return codigoProducto;
 }

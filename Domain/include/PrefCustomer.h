@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream>
-#include "Costumer.h"
+#include "Customer.h"
 
 
-class PrefCustomer : public Costumer{
+class PrefCustomer : public Customer{
     private:
     string tipo;
     public:

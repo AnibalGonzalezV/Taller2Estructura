@@ -1,9 +1,11 @@
 #pragma once
 #include <vector>
+#include <string>
 #include <iostream>
+using namespace std; 
 
-class Costumer{
-    private:
+class Customer{
+    protected:
         string nombre, rut; int edad;
     public:
         Customer(string nombre, string rut, int edad);
