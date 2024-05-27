@@ -6,10 +6,10 @@ Dermocosmética/Hidratación/Simonds DermoCream Urea/20/10022
 Dermocosmética/Hidratación/La Roche Posay Tolleriane Sensitive/20/10023
 Suplementación/Vitaminas/Tol-12 Vitamina B12/25/20011
 Suplementación/Vitaminas/Bion 3 Vitaminas/20/20012
-Suplementación/Vitaminas/Vitamina C sabor naranja/20013
+Suplementación/Vitaminas/Vitamina C sabor naranja/10/20013
 Suplementación/Fitness/Spartan Creatina 300gr/50/20021
 Suplementación/Fitness/Spartan Whey Protein/60/20022
-Suplementación/Fitness/Nutribody Creatina 300 gr/20023
+Suplementación/Fitness/Nutribody Creatina 300 gr/35/20023
 Medicamentos/Salud Mental/Andromaco Sertralina Antidepresivo/27/30011
 Medicamentos/Salud Mental/Mintlab Alprazolam Ansiolítico/21/30012
 Medicamentos/Salud Mental/Knop Melipass Passiflora/17/30013

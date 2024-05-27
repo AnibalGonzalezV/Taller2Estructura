@@ -12,7 +12,7 @@ template<typename C, typename V>
 Lista<C, V>::~Lista(){
     Nodo<C, V>* actual = head;
     while(actual != nullptr){
-        Nodo<C, V>* siguiente = actual->siguiente;
+        Nodo<C, V>* siguiente = actual-> siguiente;
         delete actual;
         actual = siguiente;
     }
