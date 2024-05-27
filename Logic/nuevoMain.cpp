@@ -107,7 +107,7 @@ string guardarVenta(StockRoom* &stock_room, vector<Product*> &productosPedidos){
 }
 
 
-void ordenarColas(queue<PrefCustomer*>& colapref_inicial,
+void ordenarFilas(queue<PrefCustomer*>& colapref_inicial,
 queue<PrefCustomer*>& colapref_aux,
 queue<PrefCustomer*>& colapref_final, const string &tipo){
     while(!colapref_inicial.empty()){
@@ -124,47 +124,44 @@ queue<PrefCustomer*>& colapref_final, const string &tipo){
     colapref_inicial.swap(colapref_aux);
 }
 
+string toLower(const string& str) {
+    string result = str;
+    for (char& c : result) { c = tolower(c); }
+    return result;
+}
 
 void agregarCliente(StockRoom* stock_room, queue<Customer*>& cola_general,
     queue<PrefCustomer*>& colapref_inicial,
     queue<PrefCustomer*>& colapref_aux,
     queue<PrefCustomer*>& colapref_final){
-    int option, edad; string nombre, tipo, rut;
+    int edad; string opcion, nombre, tipo, rut;
 
     cout << "Ingrese su nombre: " << endl; getLine(cin, nombre);
     cout << "Ingrese su Rut: " << endl; getline(cin, rut);
     cout << "Ingrese su Edad: " << endl; cin >> edad; cin.ignore();
 
-    if(edad >= 60){
-        tipo = "tercera edad";
-    } else {
-        cout << "¿Pertenece usted a alguno de los siguientes grupos? (Discapacidad/Embarazadas)" << endl;
-
-        switch (option){
-            case 1:
-                tipo = "discapacidad";
-                break;
-            case 2:
-                tipo = "embarazada";
-                break;
-            default:
-                tipo = "nada";
-                break;
+    if(edad >= 65){ tipo = "tercera edad"; } 
+    else { 
+        cout << "¿Pertenece usted a alguno de los siguientes grupos (Discapacidad/Embarazadas)? Si/No: " << endl;
+        if(toLower(opcion) == "si"){
+            switch (stoi(opcion)){
+                case 1:
+                    tipo = "discapacidad"; break;
+                case 2:
+                    tipo = "embarazada"; break;
+            }
         }
     }
 
-    if(tipo == "nada"){
-        Customer* customer = new Customer(nombre, rut, edad);
-        cola_general.push(customer);
+    if(tipo != "tercera edad" && tipo!= "discapacidad" && tipo != "embarazada"){
+        Customer* customer = new Customer(nombre, rut, edad); cola_general.push(customer);
     } else {
         PrefCustomer* prefCustomer= new PrefCustomer(nombre, rut, edad, tipo);
         colapref_inicial.push(prefCustomer);
     }
-    ordenarCola(cola_pref_inicial, cola_aux, cola_pref_final,"tercera edad");
-    ordenarCola(cola_pref_inicial, cola_aux, cola_pref_final,"discapacidad");
-    ordenarCola(cola_pref_inicial, cola_aux, cola_pref_final,"embarazada");
-
-
+    ordenarFila(cola_pref_inicial, cola_aux, cola_pref_final,"tercera edad");
+    ordenarFila(cola_pref_inicial, cola_aux, cola_pref_final,"discapacidad");
+    ordenarFila(cola_pref_inicial, cola_aux, cola_pref_final,"embarazada");
 
 }
 
