@@ -31,7 +31,7 @@ void agregarPedido(StockRoom* &stock_room, vector<string> &ventas){
     cout << "Ingrese el ID de los productos que desea (Ingrese 'exit' para finalizar)" << endl;
     string codigoProducto;
     while (true) {
-        cout << "Productos e ID´s";
+        cout << "Productos e ID´s ";
         getline(cin, codigoProducto);
 
         if (codigoProducto == "exit"){
@@ -50,7 +50,7 @@ void agregarPedido(StockRoom* &stock_room, vector<string> &ventas){
 
 bool guardarBoleta(vector<string> &ventas, PrefCustomer* &prefCustomer){
 
-    ofstream file("Informes/Boletas.txt",ios::app);
+    ofstream file("Data/Boletas.txt",ios::app);
     if(!file.is_open()){
         cout << "Error!" << endl;
         return true;
@@ -63,7 +63,7 @@ bool guardarBoleta(vector<string> &ventas, PrefCustomer* &prefCustomer){
 }
 bool guardarBoleta2(vector<string> &ventas, Customer* &customer){
 
-    ofstream file("Informes/Boletas.txt",ios::app);
+    ofstream file("Data/Boletas.txt",ios::app);
     if(!file.is_open()){
         cout << "Error!" << endl;
         return true;
@@ -107,10 +107,6 @@ void comenzarVenta(queue<Customer*> &cola_general, queue<PrefCustomer*> &colapre
 }
 
 
-
-
-
-
 void ordenarFilas(queue<PrefCustomer*>& colapref_inicial,
 queue<PrefCustomer*>& colapref_aux,
 queue<PrefCustomer*>& colapref_final, const string &tipo){
@@ -147,8 +143,11 @@ void agregarCliente(StockRoom* stock_room, queue<Customer*>& cola_general,
     if(edad >= 65){ tipo = "tercera edad"; } 
     else { 
         cout << "¿Pertenece usted a alguno de los siguientes grupos (Discapacidad/Embarazadas)? Si/No: " << endl;
+        getline(cin,opcion);
         if(toLower(opcion) == "si"){
-            switch (stoi(opcion)){
+            int op;
+            cout << "1. para Discapacidad, 2. para Embarazada" << endl; cin >> op; cin.ignore();
+            switch (op){
                 case 1:
                     tipo = "discapacidad"; break;
                 case 2:
@@ -181,7 +180,8 @@ queue<PrefCustomer*>& colapref_final){
         cout << "1. Ingresar Cliente." << endl;
         cout << "2. Guardar y Salir." << endl;
         cout << "Seleccione una opción: ";
-        cin >> opcion;
+        cin >> opcion; 
+        cin.ignore();
 
         switch(opcion) {
             case 1:
@@ -202,7 +202,7 @@ queue<PrefCustomer*>& colapref_final){
 
 
 void lecturaProductsFile(StockRoom* stock_room){
-    ifstream file("productos.txt");
+    ifstream file("bodega.txt");
     string linea;
 
     while(getline(file, linea)){
