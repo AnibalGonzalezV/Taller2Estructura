@@ -13,33 +13,39 @@
 using namespace std;
 
 
-void comenzarVenta(queue<Customer*> &cola_general, queue<PrefCustomer*> &colapref_final, StockRoom* &stock_room){
-    int opcion = 0;
-    vector<string> ventas;
-    cout << "Inicio de Venta.." << endl;
-    while(!cola_general.empty() || !colapref_final.empty()){
-        while(!colapref_final.empty()){
-            PrefCustomer* prefCustomer = colapref_final.front();
-            cout << "Bienvenido " << prefCustomer->getNombre()<<endl;
-            cout << stock_room->obtenerTodosLosProductos()<< endl;
-            agregarPedido(stock_room, ventas);
-            guardarBoleta(ventas, prefCustomer);
-            colapref_final.pop();
-            delete prefCustomer;
+string guardarVenta(StockRoom* &stock_room, vector<Product*> &productosPedidos){
+    cout << "**iMPRIMIENDO BOLETA**" << endl;
+    int precio = 0;
+    for (Product* producto : productosPedidos){
+        cout << "Producto: " << producto->getNombreProducto()<<endl;
+        precio += producto->getPrecio();
+    }
+    cout << "Valor Final: "<< precio<< endl;
+    string text = "Boleta: " +to_string(precio);
+    return text;
+}
+
+
+void agregarPedido(StockRoom* &stock_room, vector<string> &ventas){
+    vector<Product*> productosPedidos;
+    cout << "Ingrese el ID de los productos que desea (Ingrese 'exit' para finalizar)" << endl;
+    string codigoProducto;
+    while (true) {
+        cout << "Productos e ID´s";
+        getline(cin, codigoProducto);
+
+        if (codigoProducto == "exit"){
+            break;
         }
-        while(!cola_general.empty()){
-            Customer* customer = cola_general.front();
-            cout << "Bienvenido "<< customer->getNombre()<< endl;
-            cout << stock_room->obtenerTodosLosProductos()<< endl;
-            agregarPedido(stock_room, ventas);
-            guardarBoleta2(ventas,customer);
-            cola_general.pop();
-            delete customer;
+        Product* productObtenido = stock_room->getProductByID(codigoProducto);
+        if(productObtenido != nullptr){
+            productosPedidos.push_back(productObtenido);
+        } else {
+            cout << "Error. No Existe Producto con la ID: " << codigoProducto << endl; 
         }
     }
-    if(guardarBoleta(ventas) == false){
-        cout << "Se ha Guardado la boleta final." << endl;
-    }
+
+    ventas.push_back(guardarVenta(stock_room, productosPedidos));
 }
 
 bool guardarBoleta(vector<string> &ventas, PrefCustomer* &prefCustomer){
@@ -47,7 +53,7 @@ bool guardarBoleta(vector<string> &ventas, PrefCustomer* &prefCustomer){
     ofstream file("Informes/Boletas.txt",ios::app);
     if(!file.is_open()){
         cout << "Error!" << endl;
-        return true
+        return true;
     }
     for (const auto& venta : ventas){
         file << venta << "$, Rut del Cliente: "<< prefCustomer->getRut() <<endl;
@@ -60,7 +66,7 @@ bool guardarBoleta2(vector<string> &ventas, Customer* &customer){
     ofstream file("Informes/Boletas.txt",ios::app);
     if(!file.is_open()){
         cout << "Error!" << endl;
-        return true
+        return true;
     }
     for (const auto& venta : ventas){
         file << venta << "$, Rut del Cliente: "<< customer->getRut() <<endl;
@@ -70,41 +76,39 @@ bool guardarBoleta2(vector<string> &ventas, Customer* &customer){
 }
 
 
-void agregarPedido(StockRoom* &stock_room, vector<string> &ventas){
-    vector<Product*> productosPedidos;
-    cout << "Ingrese el ID de los productos que desea (Ingrese 'exit' para finalizar)" << endl;
-    string codigoProducto;
-    while (true) {
-        cout << "Productos e ID´s";
-        getline(cin, codigoProducto);
 
-        if (id == "exit"){
-            break;
+void comenzarVenta(queue<Customer*> &cola_general, queue<PrefCustomer*> &colapref_final, StockRoom* &stock_room){
+    int opcion = 0;
+    vector<string> ventas;
+    cout << "Inicio de Venta.." << endl;
+    while(!cola_general.empty() || !colapref_final.empty()){
+        while(!colapref_final.empty()){
+            PrefCustomer* prefCustomer = colapref_final.front();
+            cout << "Bienvenido " << prefCustomer->getNombre()<<endl;
+            cout << stock_room->getProductos()<< endl;
+            agregarPedido(stock_room, ventas);
+            guardarBoleta(ventas, prefCustomer);
+            colapref_final.pop();
+            delete prefCustomer;
         }
-        Product* productObtenido = stock_room->getProductByID(id);
-        if(productObtenido != nullptr){
-            productosPedidos.push_back(productObtenido);
-        } else {
-            cout << "Error. No Existe Producto con la ID: " << codigoProducto << endl; 
+        while(!cola_general.empty()){
+            Customer* customer = cola_general.front();
+            cout << "Bienvenido "<< customer->getNombre()<< endl;
+            cout << stock_room->getProductos()<< endl;
+            agregarPedido(stock_room, ventas);
+            guardarBoleta2(ventas,customer);
+            cola_general.pop();
+            delete customer;
         }
     }
-
-    ventas.push_back(guardarVenta(stock_room, productosPedidos));
+    //if(guardarBoleta(ventas, pref) == false){
+      //  cout << "Se ha Guardado la boleta final." << endl;
+    //}
 }
 
-string guardarVenta(StockRoom* &stock_room, vector<Product*> &productosPedidos){
-    cout << "**iMPRIMIENDO BOLETA**" << endl;
-    int precio = 0;
-    for (Product* producto : productosPedidos){
-        cout << "Producto: " << productosPedidos->getNombre()<<endl;
-        precio += productoPedido->getPrecio();
-    }
-    cout << "Valor Final: "<< precio<< endl;
-    string text = "Boleta: " +to_string(precio);
-    return text;
 
 
-}
+
 
 
 void ordenarFilas(queue<PrefCustomer*>& colapref_inicial,
@@ -136,7 +140,7 @@ void agregarCliente(StockRoom* stock_room, queue<Customer*>& cola_general,
     queue<PrefCustomer*>& colapref_final){
     int edad; string opcion, nombre, tipo, rut;
 
-    cout << "Ingrese su nombre: " << endl; getLine(cin, nombre);
+    cout << "Ingrese su nombre: " << endl; getline(cin, nombre);
     cout << "Ingrese su Rut: " << endl; getline(cin, rut);
     cout << "Ingrese su Edad: " << endl; cin >> edad; cin.ignore();
 
@@ -159,9 +163,9 @@ void agregarCliente(StockRoom* stock_room, queue<Customer*>& cola_general,
         PrefCustomer* prefCustomer= new PrefCustomer(nombre, rut, edad, tipo);
         colapref_inicial.push(prefCustomer);
     }
-    ordenarFila(cola_pref_inicial, cola_aux, cola_pref_final,"tercera edad");
-    ordenarFila(cola_pref_inicial, cola_aux, cola_pref_final,"discapacidad");
-    ordenarFila(cola_pref_inicial, cola_aux, cola_pref_final,"embarazada");
+    ordenarFilas(colapref_inicial, colapref_aux, colapref_final,"tercera edad");
+    ordenarFilas(colapref_inicial, colapref_aux, colapref_final,"discapacidad");
+    ordenarFilas(colapref_inicial, colapref_aux, colapref_final,"embarazada");
 
 }
 
@@ -183,7 +187,7 @@ queue<PrefCustomer*>& colapref_final){
             case 1:
                 // Lógica para ingresar cliente
                 cout << "Registrando Cliente.." << endl;
-                agregarCliente(stock_room, cola_general, cola_pref_inicial, cola_aux, cola_pref_final);
+                agregarCliente(stock_room, cola_general, colapref_inicial, colapref_aux, colapref_final);
                 comenzarVenta(cola_general, colapref_final, stock_room);
                 break;
             case 2:
@@ -202,7 +206,7 @@ void lecturaProductsFile(StockRoom* stock_room){
     string linea;
 
     while(getline(file, linea)){
-        stringstream ss(line);
+        stringstream ss(linea);
         string categoria, subcategoria, nombre_producto, codigoProducto;
         int precio;
 
@@ -212,7 +216,7 @@ void lecturaProductsFile(StockRoom* stock_room){
 
         Product* product = new Product(categoria, subcategoria, nombre_producto, precio, codigoProducto);
 
-        stock_room->insertar(nombre_producto, product);
+        stock_room->agregarProducto(nombre_producto, product);
     }
 
     file.close();
@@ -221,12 +225,12 @@ void lecturaProductsFile(StockRoom* stock_room){
 
 int main(){
     StockRoom* stock_room = new StockRoom();
-    queue<Cliente*> cola_comun; 
-    queue<ClientePreferencial*> colapref_inicial;
-    queue<ClientePreferencial*> colapref_aux; 
-    queue<ClientePreferencial*> colapref_final;
+    queue<Customer*> cola_general; 
+    queue<PrefCustomer*> colapref_inicial;
+    queue<PrefCustomer*> colapref_aux; 
+    queue<PrefCustomer*> colapref_final;
 
     lecturaProductsFile(stock_room);
-    menuFarmacia(stock_room, cola_general, cola_pref_inicial, cola_aux, cola_pref_final);
+    menuFarmacia(stock_room, cola_general, colapref_inicial, colapref_aux, colapref_final);
     return 0;
 }
