@@ -7,7 +7,7 @@ using namespace std;
 
 class StockRoom{
 private:
-    HashMap<string, Product*> productos; //<nombre_producto(key), puntero_producto(value)>
+    HashMap<string, Product*> productos;
 public:
     StockRoom();
     //Agregar productos al MAP
